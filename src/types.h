@@ -36,20 +36,35 @@ enum {
     MATED_IN_MAX = -MATE_IN_MAX,
     VALUE_INF = 32001
 };
+enum {
+    WHITE_OO = 1, WHITE_OOO = 2,
+    BLACK_OO = 4, BLACK_OOO = 8,
+    CASTLING_NB = 16
+};
 
 static inline int pieceType(int piece) { return piece % 8; }
 static inline int pieceColor(int piece) { return piece / 8; }
 static inline int makePiece(int pieceType, int color) { return pieceType + color * 8; }
+
+static inline int fileOf(int square) { return square % 8; }
+static inline int rankOf(int square) { return square / 8; }
+static inline int makeSquare(int file, int rank) { return file + rank * 8; }
 
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 
 typedef struct Board Board;
 typedef struct Undo Undo;
+typedef struct MovePicker MovePicker;
 typedef struct Thread Thread;
+typedef struct EvalInfo EvalInfo;
+typedef struct SearchInfo SearchInfo;
+typedef struct PVariation PVariation;
 typedef struct TTEntry TTEntry;
 typedef struct TTBucket TTBucket;
 typedef struct TTable TTable;
+typedef struct Limits Limits;
+typedef struct ThreadsGo ThreadsGo;
 
 typedef int KillerTable[MAX_PLY][2];
 typedef int CounterMoveTable[COLOR_NB][SQUARE_NB][SQUARE_NB];
