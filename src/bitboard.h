@@ -39,3 +39,9 @@ int getmsb(uint64_t bb);
 int poplsb(uint64_t *bb);
 bool several(uint64_t bb);
 bool onlyOne(uint64_t bb);
+
+void setBit(uint64_t *bb, int sq);
+void clearBit(uint64_t *bb, int sq);
+bool testBit(uint64_t bb, int sq);
+
+void printBitboard(uint64_t bb);

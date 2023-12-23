@@ -9,3 +9,18 @@ int getmsb(uint64_t bb) { return 63 - __builtin_clzll(bb); }
 int poplsb(uint64_t *bb) { int lsb = getlsb(*bb); *bb &= *bb - 1; return lsb; }
 bool several(uint64_t bb) { return bb & (bb - 1); }
 bool onlyOne(uint64_t bb) { return bb && !several(bb); }
+
+void setBit(uint64_t *bb, int sq) { *bb |= 1ull << sq; }
+void clearBit(uint64_t *bb, int sq) { *bb &= ~(1ull << sq); }
+bool testBit(uint64_t bb, int sq) { return bb & (1ull << sq); }
+
+void printBitboard(uint64_t bb) {
+    for (int r = RANK_8; r >= RANK_1; r--){
+        for (int f = FILE_A; f <= FILE_H; f++) {
+            if (testBit(bb, makeSquare(f, r)))
+                printf("X ");
+            else printf(". ");
+        }
+        printf("\n");
+    }
+}
