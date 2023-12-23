@@ -1,3 +1,4 @@
+#include "bitboard.h"
 #include "types.h"
 #include "zobrist.h"
 
