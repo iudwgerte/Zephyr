@@ -50,7 +50,7 @@ static inline int makePiece(int pieceType, int color) { return pieceType + color
 static inline int fileOf(int square) { return square % 8; }
 static inline int rankOf(int square) { return square / 8; }
 static inline int makeSquare(int file, int rank) { return file + rank * 8; }
-static inline bool validCoord(int file, int rank) { return FILE_A <= file <= FILE_H && RANK_1 <= rank <= RANK_8; }
+static inline bool validCoord(int file, int rank) { return FILE_A <= file && file <= FILE_H && RANK_1 <= rank && rank <= RANK_8; }
 
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
