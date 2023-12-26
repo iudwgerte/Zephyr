@@ -6,5 +6,6 @@
 int main() {
     initAttacks();
     initZobrist();
+    printBitboard(bishopAttack(SQ_D2, 0ull));
     return 0;
 }

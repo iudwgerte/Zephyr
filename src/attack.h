@@ -4,9 +4,9 @@
 
 void initAttacks();
 
-uint64_t pawnAttacks(int sq, int color);
-uint64_t knightAttacks(int sq);
-uint64_t bishopAttacks(int sq, uint64_t occupied);
-uint64_t rookAttacks(int sq, uint64_t occupied);
-uint64_t queenAttacks(int sq, uint64_t occupied);
-uint64_t kingAttacks(int sq);
+uint64_t pawnAttack(int sq, int color);
+uint64_t knightAttack(int sq);
+uint64_t bishopAttack(int sq, uint64_t occupied);
+uint64_t rookAttack(int sq, uint64_t occupied);
+uint64_t queenAttack(int sq, uint64_t occupied);
+uint64_t kingAttack(int sq);

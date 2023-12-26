@@ -11,6 +11,11 @@ const int bishopDelta[4][2] = {{1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
 const int rookDelta[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 const int kingDelta[8][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
 
+static void setSquare(uint64_t *bb, int file, int rank){
+    if (validCoord(file, rank))
+        setBit(bb, makeSquare(file, rank));
+}
+
 uint64_t slidingPieceSlow(int sq, uint64_t occupied, const int delta[4][2]) {
     uint64_t result = 0ull;
     int f, r, df, dr;
@@ -26,12 +31,21 @@ uint64_t slidingPieceSlow(int sq, uint64_t occupied, const int delta[4][2]) {
 }
 
 void initAttacks() {
-    
+    for (int sq = 0; sq < 64; sq++) {
+        for (int dir = 0; dir < 2; dir++){
+            setSquare(&pawnAttacksTable[WHITE][sq], fileOf(sq) + pawnDelta[dir][0], rankOf(sq) + pawnDelta[dir][1]);
+            setSquare(&pawnAttacksTable[BLACK][sq], fileOf(sq) - pawnDelta[dir][0], rankOf(sq) - pawnDelta[dir][1]);
+        }
+        for (int dir = 0; dir < 8; dir++) {
+            setSquare(&knightAttacksTable[sq], fileOf(sq) + knightDelta[dir][0], rankOf(sq) + knightDelta[dir][1]);
+            setSquare(&kingAttacksTable[sq], fileOf(sq) + kingDelta[dir][0], rankOf(sq) + kingDelta[dir][1]);
+        }
+    }
 }
 
-uint64_t pawnAttacks(int sq, int color) { return pawnAttacksTable[color][sq]; }
-uint64_t knightAttacks(int sq) { return knightAttacksTable[sq]; }
-uint64_t bishopAttacks(int sq, uint64_t occupied) { return slidingPieceSlow(sq, occupied, bishopDelta); }
-uint64_t rookAttacks(int sq, uint64_t occupied) { return slidingPieceSlow(sq, occupied, rookDelta); }
-uint64_t queenAttacks(int sq, uint64_t occupied) { return bishopAttacks(sq, occupied) | rookAttacks(sq, occupied); }
-uint64_t kingAttacks(int sq) { return kingAttacksTable[sq]; }
+uint64_t pawnAttack(int sq, int color) { return pawnAttacksTable[color][sq]; }
+uint64_t knightAttack(int sq) { return knightAttacksTable[sq]; }
+uint64_t bishopAttack(int sq, uint64_t occupied) { return slidingPieceSlow(sq, occupied, bishopDelta); }
+uint64_t rookAttack(int sq, uint64_t occupied) { return slidingPieceSlow(sq, occupied, rookDelta); }
+uint64_t queenAttack(int sq, uint64_t occupied) { return bishopAttack(sq, occupied) | rookAttack(sq, occupied); }
+uint64_t kingAttack(int sq) { return kingAttacksTable[sq]; }
