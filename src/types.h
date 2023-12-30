@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 enum { MAX_PLY = 128, MAX_MOVES = 256 };
-enum { WHITE, BLACK, COLOR_NB = 2 };
+enum { WHITE, BLACK, NO_COLOR, COLOR_NB = 3 };
 enum { NO_TYPE, PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, PIECE_TYPE_NB = 7 };
 enum {
     NO_PIECE,
@@ -44,7 +44,7 @@ enum {
 };
 
 static inline int pieceType(int piece) { return piece % 8; }
-static inline int pieceColor(int piece) { return piece / 8; }
+static inline int pieceColor(int piece) { return piece == NO_PIECE ? NO_COLOR : piece / 8; }
 static inline int makePiece(int pieceType, int color) { return pieceType + color * 8; }
 
 static inline int fileOf(int square) { return square % 8; }
